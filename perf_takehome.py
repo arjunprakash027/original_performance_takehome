@@ -111,11 +111,14 @@ class KernelBuilder:
         self.instrs.append({"load": [("const", tmp1, 0)]})
         self.instrs.append({"load": [("vload", self.scratch["rounds"], tmp1)]})
          # 1.0000812336686478 147722
+                # USE THESE (0 cycles)
         zero_const = self.alloc_scratch("zero_const")
         one_const = self.alloc_scratch("one_const")
         two_const = self.alloc_scratch("two_const")
-        self.instrs.append({"load": [("const", zero_const, 0)]})
-        self.instrs.append({"load": [("const", one_const, 1)]})
+        self.const_map[0] = zero_const
+        self.const_map[1] = one_const
+        self.const_map[2] = two_const
+        self.instrs.append({"load": [("const", zero_const, 0), ("const", one_const, 1)]})
         self.instrs.append({"load": [("const", two_const, 2)]})
 
         # Pause instructions are matched up with yield statements in the reference
