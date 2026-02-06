@@ -107,9 +107,9 @@ class KernelBuilder:
         ]
         for v in init_vars:
             self.alloc_scratch(v, 1)
-        for i, v in enumerate(init_vars):
-            self.add("load", ("const", tmp1, i))
-            self.add("load", ("load", self.scratch[v], tmp1))
+
+        self.instrs.append({"load": [("const", tmp1, 0)]})
+        self.instrs.append({"load": [("vload", self.scratch["rounds"], tmp1)]})
 
         zero_const = self.scratch_const(0)
         one_const = self.scratch_const(1)
