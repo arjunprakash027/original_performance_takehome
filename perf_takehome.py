@@ -110,10 +110,13 @@ class KernelBuilder:
 
         self.instrs.append({"load": [("const", tmp1, 0)]})
         self.instrs.append({"load": [("vload", self.scratch["rounds"], tmp1)]})
-
-        zero_const = self.scratch_const(0)
-        one_const = self.scratch_const(1)
-        two_const = self.scratch_const(2)
+         # 1.0000812336686478 147722
+        zero_const = self.alloc_scratch("zero_const")
+        one_const = self.alloc_scratch("one_const")
+        two_const = self.alloc_scratch("two_const")
+        self.instrs.append({"load": [("const", zero_const, 0)]})
+        self.instrs.append({"load": [("const", one_const, 1)]})
+        self.instrs.append({"load": [("const", two_const, 2)]})
 
         # Pause instructions are matched up with yield statements in the reference
         # kernel to let you debug at intermediate steps. The testing harness in this
